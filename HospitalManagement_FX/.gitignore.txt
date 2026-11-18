@@ -1,0 +1,10 @@
+# Eclipse launch configurations may contain local credentials
+*.launch
+
+# Local secret files, if you use them later
+.env
+.env.*
+!.env.example
+
+# Eclipse workspace metadata
+.metadata/
