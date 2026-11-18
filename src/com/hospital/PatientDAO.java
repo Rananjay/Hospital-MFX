@@ -15,12 +15,18 @@ public class PatientDAO {
 	private static final String URL =
 	        "jdbc:mysql://localhost:3306/hospital_db?allowPublicKeyRetrieval=true&useSSL=false";
 
-    private static final String USER = "root";
-    private static final String PASSWORD = "YOUR_MYSQL_PASSWORD";
+	private static final String USER = System.getenv("DB_USER");
+	private static final String PASSWORD = System.getenv("DB_PASSWORD");
 
-    private Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(URL, USER, PASSWORD);
-    }
+	private Connection getConnection() throws SQLException {
+	    if (USER == null || USER.isEmpty() || PASSWORD == null) {
+	        throw new SQLException(
+	            "Set DB_USER and DB_PASSWORD in Eclipse's Environment tab."
+	        );
+	    }
+
+	    return DriverManager.getConnection(URL, USER, PASSWORD);
+	}
 
     public boolean addPatient(Patient patient) throws SQLException {
 
